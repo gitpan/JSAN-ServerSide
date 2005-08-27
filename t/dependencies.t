@@ -27,31 +27,31 @@ my %dependencies =
 }
 
 {
-    my $js = JSAN::ServerSide->new( js_dir => '/' );
+    my $js = JSAN::ServerSide->new( js_dir => '/', uri_prefix => '/' );
 
     $js->add('A');
 
     my @uris = $js->uris;
 
-    is_deeply( \@uris, [ 'C.js', 'B.js', 'A.js' ] );
+    is_deeply( \@uris, [ '/C.js', '/B.js', '/A.js' ] );
 }
 
 {
-    my $js = JSAN::ServerSide->new( js_dir => '/' );
+    my $js = JSAN::ServerSide->new( js_dir => '/', uri_prefix => '/' );
 
     $js->add('D');
 
     my @uris = $js->uris;
 
-    is_deeply( \@uris, [ 'E.js', 'F.js', 'G.js', 'D.js' ] );
+    is_deeply( \@uris, [ '/E.js', '/F.js', '/G.js', '/D.js' ] );
 }
 
 {
-    my $js = JSAN::ServerSide->new( js_dir => '/' );
+    my $js = JSAN::ServerSide->new( js_dir => '/', uri_prefix => '/' );
 
     $js->add('E');
 
     my @uris = $js->uris;
 
-    is_deeply( \@uris, ['F.js', 'G.js', 'D.js', 'E.js' ] );
+    is_deeply( \@uris, ['/F.js', '/G.js', '/D.js', '/E.js' ] );
 }

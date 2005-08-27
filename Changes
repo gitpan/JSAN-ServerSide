@@ -1,4 +1,11 @@
-0.01    Date/time
+0.02
+
+- Constructor now requires both a js_dir and uri_prefix parameter.
+
+- Use HTML::Location under the hood for path generation.
+
+
+0.01    2005-08-27
 
 - Initial release
 

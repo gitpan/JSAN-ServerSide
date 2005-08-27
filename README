@@ -4,8 +4,8 @@ NAME
 SYNOPSIS
       use JSAN::ServerSide;
 
-      my $server = JSAN::ServerSide->new( uri_prefix => '/js',
-                                          js_dir => '/usr/local/js',
+      my $server = JSAN::ServerSide->new( js_dir => '/usr/local/js',
+                                          uri_prefix => '/js',
                                         );
 
       $server->add('DOM.Ready');
@@ -64,8 +64,8 @@ METHODS
                 JSAN-style Javascript libraries.
 
         o uri_prefix
-                This parameter is the prefix to be prepended to generated
-                URIs. It defaults to an empty string.
+                This parameter is required. It is the prefix to be prepended
+                to generated URIs.
 
     * add('Class.Name')
         This method accepts a JSAN-style library name (like "DOM.Ready") and

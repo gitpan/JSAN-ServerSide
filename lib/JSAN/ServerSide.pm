@@ -3,11 +3,10 @@ package JSAN::ServerSide;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
-use File::Spec;
-use File::Spec::Unix;
+use HTML::Location;
 use JSAN::Parse::FileDeps;
 use Params::Validate qw( validate SCALAR );
 
@@ -20,11 +19,13 @@ sub new
     my $class = shift;
     my %p = validate( @_,
                       { js_dir => { type => SCALAR },
-                        uri_prefix => { type => SCALAR, default => '' },
+                        uri_prefix => { type => SCALAR },
                       },
                     );
 
-    return bless \%p, $class;
+    my $location = HTML::Location->new( $p{js_dir}, $p{uri_prefix} );
+
+    return bless { location => $location }, $class;
 }
 
 sub add
@@ -63,24 +64,18 @@ sub _class_to_file
 {
     my $self = shift;
 
-    $self->_class_to_path( shift, $self->{js_dir}, 'File::Spec' );
+    $self->_class_to_path( shift )->path;
 }
 
 sub _class_to_path
 {
-    shift;
+    my $self = shift;
     my $js_class = shift;
-    my $prefix = shift;
-    my $fs_class = shift;
 
     my @pieces = split /\./, $js_class;
     $pieces[-1] .= '.js';
 
-    # If you give File::Spec '' as a prefix, it turns it into a
-    # leading slash
-    my @prefix = grep { length && defined } $prefix ? $prefix : ();
-
-    return $fs_class->catfile( @prefix, @pieces );
+    return $self->{location}->catfile(@pieces);
 }
 
 sub uris
@@ -118,7 +113,7 @@ sub _class_to_uri
 {
     my $self = shift;
 
-    $self->_class_to_path( shift, $self->{uri_prefix}, 'File::Spec::Unix' );
+    $self->_class_to_path( shift )->uri;
 }
 
 
@@ -134,8 +129,8 @@ JSAN::ServerSide - The fantastic new JSAN::ServerSide!
 
   use JSAN::ServerSide;
 
-  my $server = JSAN::ServerSide->new( uri_prefix => '/js',
-                                      js_dir => '/usr/local/js',
+  my $server = JSAN::ServerSide->new( js_dir => '/usr/local/js',
+                                      uri_prefix => '/js',
                                     );
 
   $server->add('DOM.Ready');
@@ -205,10 +200,10 @@ This method accepts two parameters:
 This parameter is required.  It is the root directory of your
 JSAN-style Javascript libraries.
 
-=item o uri_prefix 
+=item o uri_prefix
 
-This parameter is the prefix to be prepended to generated URIs.  It
-defaults to an empty string.
+This parameter is required.  It is the prefix to be prepended to
+generated URIs.
 
 =back
 

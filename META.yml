@@ -1,6 +1,6 @@
 ---
 name: JSAN-ServerSide
-version: 0.01
+version: 0.02
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: The fantastic new JSAN::ServerSide!
@@ -8,9 +8,10 @@ license: perl
 resources:
   license: http://dev.perl.org/licenses/
 requires:
+  HTML::Location: 0
   Test::More: 0
 provides:
   JSAN::ServerSide:
     file: lib/JSAN/ServerSide.pm
-    version: 0.01
+    version: 0.02
 generated_by: Module::Build version 0.2702

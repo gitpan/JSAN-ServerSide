@@ -7,7 +7,9 @@ my $builder =
     Module::Build->new
         ( module_name        => 'JSAN::ServerSide',
           license            => 'perl',
-          requires           => { 'Test::More' => 0 },
+          requires           => { 'Test::More' => 0,
+                                  'HTML::Location' => 0,
+                                },
           create_makefile_pl => 'passthrough',
           create_readme      => 1,
           sign               => 1,
