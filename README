@@ -1,5 +1,6 @@
 NAME
-    JSAN::ServerSide - The fantastic new JSAN::ServerSide!
+    JSAN::ServerSide - Manage JSAN dependencies server side instead of with
+    XMLHttpRequest
 
 SYNOPSIS
       use JSAN::ServerSide;

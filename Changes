@@ -1,3 +1,11 @@
+0.03
+
+- Added missing prereqs to Build.PL - Params::Validate and
+JSAN::Parse::FileDeps.  Reported by Stephen Adkins.
+
+- Switched from HTML::Location to URI::ToDisk (same module, new name).
+
+
 0.02
 
 - Constructor now requires both a js_dir and uri_prefix parameter.

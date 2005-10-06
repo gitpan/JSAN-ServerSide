@@ -1,17 +1,19 @@
 ---
 name: JSAN-ServerSide
-version: 0.02
+version: 0.03
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
-abstract: The fantastic new JSAN::ServerSide!
+abstract: Manage JSAN dependencies server side instead of with XMLHttpRequest
 license: perl
 resources:
   license: http://dev.perl.org/licenses/
 requires:
-  HTML::Location: 0
+  JSAN::Parse::FileDeps: 0
+  Params::Validate: 0
   Test::More: 0
+  URI::ToDisk: 0
 provides:
   JSAN::ServerSide:
     file: lib/JSAN/ServerSide.pm
-    version: 0.02
+    version: 0.03
 generated_by: Module::Build version 0.2702

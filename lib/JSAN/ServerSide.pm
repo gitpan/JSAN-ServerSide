@@ -3,10 +3,10 @@ package JSAN::ServerSide;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
-use HTML::Location;
+use URI::ToDisk;
 use JSAN::Parse::FileDeps;
 use Params::Validate qw( validate SCALAR );
 
@@ -23,7 +23,7 @@ sub new
                       },
                     );
 
-    my $location = HTML::Location->new( $p{js_dir}, $p{uri_prefix} );
+    my $location = URI::ToDisk->new( $p{js_dir}, $p{uri_prefix} );
 
     return bless { location => $location }, $class;
 }
@@ -123,7 +123,7 @@ __END__
 
 =head1 NAME
 
-JSAN::ServerSide - The fantastic new JSAN::ServerSide!
+JSAN::ServerSide - Manage JSAN dependencies server side instead of with XMLHttpRequest
 
 =head1 SYNOPSIS
 
