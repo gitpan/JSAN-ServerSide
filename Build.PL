@@ -12,6 +12,7 @@ my $builder =
                                   'Test::More'  => 0,
                                   'URI::ToDisk' => 0,
                                 },
+          build_requires     => { 'Module::Build' => 0 },
           create_makefile_pl => 'passthrough',
           create_readme      => 1,
           sign               => 1,

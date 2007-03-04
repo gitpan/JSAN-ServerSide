@@ -1,19 +1,19 @@
 use strict;
 use warnings;
 
-use Test::More tests => 3;
+use Test::More tests => 6;
 
 use JSAN::ServerSide;
 
 
 my %dependencies =
-    ( '/A.js' => [ qw( B C ) ],
-      '/B.js' => [ 'C' ],
-      '/C.js' => [],
-      '/D.js' => [ qw( E F G ) ],
-      '/E.js' => [ 'D' ],
-      '/F.js' => [],
-      '/G.js' => [],
+    ( '/files/A.js' => [ qw( B C ) ],
+      '/files/B.js' => [ 'C' ],
+      '/files/C.js' => [],
+      '/files/D.js' => [ qw( E F G ) ],
+      '/files/E.js' => [ 'D' ],
+      '/files/F.js' => [],
+      '/files/G.js' => [],
     );
 
 {
@@ -27,31 +27,27 @@ my %dependencies =
 }
 
 {
-    my $js = JSAN::ServerSide->new( js_dir => '/', uri_prefix => '/' );
-
+    my $js = JSAN::ServerSide->new( js_dir => '/files', uri_prefix => '/uris' );
     $js->add('A');
 
-    my @uris = $js->uris;
-
-    is_deeply( \@uris, [ '/C.js', '/B.js', '/A.js' ] );
+    is_deeply( [ $js->uris() ], [ '/uris/C.js', '/uris/B.js', '/uris/A.js' ] );
+    is_deeply( [ $js->files() ], [ '/files/C.js', '/files/B.js', '/files/A.js' ] );
 }
 
 {
-    my $js = JSAN::ServerSide->new( js_dir => '/', uri_prefix => '/' );
+    my $js = JSAN::ServerSide->new( js_dir => '/files', uri_prefix => '/uris' );
 
     $js->add('D');
 
-    my @uris = $js->uris;
-
-    is_deeply( \@uris, [ '/E.js', '/F.js', '/G.js', '/D.js' ] );
+    is_deeply( [ $js->uris() ], [ '/uris/E.js', '/uris/F.js', '/uris/G.js', '/uris/D.js' ] );
+    is_deeply( [ $js->files() ], [ '/files/E.js', '/files/F.js', '/files/G.js', '/files/D.js' ] );
 }
 
 {
-    my $js = JSAN::ServerSide->new( js_dir => '/', uri_prefix => '/' );
+    my $js = JSAN::ServerSide->new( js_dir => '/files', uri_prefix => '/uris' );
 
     $js->add('E');
 
-    my @uris = $js->uris;
-
-    is_deeply( \@uris, ['/F.js', '/G.js', '/D.js', '/E.js' ] );
+    is_deeply( [ $js->uris() ], ['/uris/F.js', '/uris/G.js', '/uris/D.js', '/uris/E.js' ] );
+    is_deeply( [ $js->files() ], ['/files/F.js', '/files/G.js', '/files/D.js', '/files/E.js' ] );
 }

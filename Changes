@@ -1,19 +1,25 @@
-0.03
+0.04  2007-03-04
+
+- Added a new method, files(), to support creating a single combined
+  Javascript file on the server side.
+
+
+0.03  2006-10-2005
 
 - Added missing prereqs to Build.PL - Params::Validate and
-JSAN::Parse::FileDeps.  Reported by Stephen Adkins.
+  JSAN::Parse::FileDeps.  Reported by Stephen Adkins.
 
 - Switched from HTML::Location to URI::ToDisk (same module, new name).
 
 
-0.02
+0.02  2005-08-27
 
 - Constructor now requires both a js_dir and uri_prefix parameter.
 
 - Use HTML::Location under the hood for path generation.
 
 
-0.01    2005-08-27
+0.01  2005-08-27
 
 - Initial release
 
