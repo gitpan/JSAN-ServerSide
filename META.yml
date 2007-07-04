@@ -1,6 +1,6 @@
 ---
 name: JSAN-ServerSide
-version: 0.04
+version: 0.05
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Manage JSAN dependencies server side instead of with XMLHttpRequest
@@ -17,8 +17,8 @@ build_requires:
 provides:
   JSAN::ServerSide:
     file: lib/JSAN/ServerSide.pm
-    version: 0.04
-generated_by: Module::Build version 0.2806
+    version: 0.05
+generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2

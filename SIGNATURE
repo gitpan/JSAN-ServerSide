@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.54.
+signed via the Module::Signature module, version 0.55.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,22 +15,22 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 b98a4f7cdd9926b400b7f2aca131e8bb27304046 Build.PL
-SHA1 52329a2bf2c8c1aa7659256a7b74468ce292f3d4 Changes
+SHA1 8535c7bb71534deccc4bea98217f601fcdaf3812 Changes
 SHA1 f235ba4160673bcb7c9d58c2f09dbc7fc0efadea LICENSE
 SHA1 451dea9567515bf191abd00435526e406e125a88 MANIFEST
-SHA1 152676b5496559b48289c84bf85cc32358e10736 META.yml
+SHA1 e54cba3840bf888be78074a5ea3878e4679a3802 META.yml
 SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
-SHA1 59d77ee29424c70945cdfcee2236e68b397c6fc8 README
+SHA1 d7b6e35e9c4508053622af5c494d7af5ed6036f9 README
 SHA1 23cccdf0b0604461a5c4030a750020c1e240dbb7 TODO
-SHA1 29c76bb4fec14fb2a14b35b3b3ea084f768cfe51 lib/JSAN/ServerSide.pm
+SHA1 2d589304553eae49d3a70c6dea4a2b503fd3662f lib/JSAN/ServerSide.pm
 SHA1 fe5fbc137e84d416c02b3d2a44213ac5db9b1e0c t/class-to.t
 SHA1 499c933ffea82c3bef1dcf86816df1ebd4459db9 t/dependencies.t
 SHA1 f8678ba1c55d529f059c01a939bb03a1093f4137 t/pod-coverage.t
 SHA1 37307177c8305132ecc2c9b0778f53fa48f1691e t/pod.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.3 (GNU/Linux)
+Version: GnuPG v1.4.6 (GNU/Linux)
 
-iD8DBQFF6v5A3Or3ZzQuifMRAu9wAKDkYApAzrnE2NVs50nLqfkxPuZwFgCfZxjS
-Mzj0/x6WR7hqFNHuw1xV4QY=
-=f0ZX
+iD8DBQFGi+Q+3Or3ZzQuifMRAncBAKC7VHarXQr5vW4NLrWrq8tSz1efEwCgsJ9O
+2ZWqZxMqKq4gmddWl6A6nC0=
+=cDdS
 -----END PGP SIGNATURE-----

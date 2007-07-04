@@ -1,3 +1,11 @@
+0.05  2007-07-04
+
+* Changed caching of dependencies so that it is done in individual
+  objects, rather than in the class. This makes it easier to force
+  reparsing for dependencies, because now you can simply make a new
+  object, which effectively flushes the cache.
+
+
 0.04  2007-03-04
 
 - Added a new method, files(), to support creating a single combined

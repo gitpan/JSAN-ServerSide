@@ -3,16 +3,13 @@ package JSAN::ServerSide;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 use URI::ToDisk;
 use JSAN::Parse::FileDeps;
 use Params::Validate qw( validate SCALAR );
 
-
-my %Dependencies;
-my %LastChecked;
 
 sub new
 {
@@ -47,12 +44,12 @@ sub _record_dependencies
 
     my $last_mod = _last_mod($js_file);
 
-    return if $LastChecked{$js_class} && $last_mod <= $LastChecked{$js_class};
+    return if $self->{last_checked}{$js_class} && $last_mod <= $self->{last_checked}{$js_class};
 
     my @deps = JSAN::Parse::FileDeps->library_deps($js_file);
 
-    $Dependencies{$js_class} = [ @deps ];
-    $LastChecked{$js_class} = time;
+    $self->{dependencies}{$js_class} = [ @deps ];
+    $self->{last_checked}{$js_class} = time;
 
     $self->_record_dependencies($_) for @deps;
 }
@@ -100,7 +97,7 @@ sub _classes
     my @classes;
     for my $c ( @{ $self->{classes} } )
     {
-        _follow_deps( $c, \@classes, \%seen );
+        $self->_follow_deps( $c, \@classes, \%seen );
     }
 
     return @classes;
@@ -108,6 +105,7 @@ sub _classes
 
 sub _follow_deps
 {
+    my $self    = shift;
     my $c       = shift;
     my $classes = shift;
     my $seen    = shift;
@@ -115,9 +113,9 @@ sub _follow_deps
     return if $seen->{$c};
     $seen->{$c} = 1;
 
-    for my $d ( @{ $Dependencies{$c} } )
+    for my $d ( @{ $self->{dependencies}{$c} } )
     {
-        _follow_deps( $d, $classes, $seen );
+        $self->_follow_deps( $d, $classes, $seen );
     }
 
     push @$classes, $c;
@@ -199,11 +197,10 @@ $js->files() > and combine them in the order they are returned.
 
 =head2 Caching
 
-Dependency information is cached in memory in the I<class> in such a
-way as to preserve this information across requests under mod_perl,
-meaning you can create a new C<JSAN::ServerSide> object for each
-request and Javascript files which have not changed will not be
-re-parsed.
+Dependency information is cached in memory in the I<object>. If you
+want to preserve this information in a persistent environment such as
+mod_perl or FastCGI, you'll need to hold on to a reference to the
+C<JSAN::ServerSide> object across multiple requests.
 
 =head1 METHODS
 
@@ -250,7 +247,7 @@ dependencies are loaded first.
 
 =back
 
-=head1 MOCK JSAN
+=head1 MOCKING JSAN.js
 
 If you use this module, you will need to mock out JSAN in your
 generated HTML/JS.  Since the libraries being parsed contain a
@@ -267,8 +264,8 @@ Mocking JSAN can be done with the following code:
 
 =head1 CIRCULAR DEPENDENCIES
 
-Currently, this module allows for circular dependencies, because that
-could work, depending on how the dependent classes are used.
+Currently, this module allows for circular dependencies because they
+may not be a problem, depending on how the dependent classes are used.
 
 For example, if "A" depends on "B" and vice versa, then A could still
 work as long as it does not try to use B immediately at load time, but
@@ -297,7 +294,7 @@ notified of progress on your bug as I make changes.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005 Dave Rolsky, All Rights Reserved.
+Copyright 2005-2007 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
