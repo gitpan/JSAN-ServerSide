@@ -1,3 +1,8 @@
+0.06  2008-11-07
+
+- Test changes only. Fixed dependencies.t so it passes on Win32.
+
+
 0.05  2007-07-04
 
 * Changed caching of dependencies so that it is done in individual
